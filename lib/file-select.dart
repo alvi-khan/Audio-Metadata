@@ -8,15 +8,16 @@ class FileSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.blueGrey.shade500, width: 2)),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.white12, width: 2)),
       ),
       child: Row(
         children: [
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(20)
+                padding: const EdgeInsets.all(20),
+                primary: Colors.blueGrey.shade500,
             ),
             child: const Text("Select File"),
           ),
@@ -25,11 +26,11 @@ class FileSelect extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey.shade700,
+                  color: Colors.blueGrey.shade800,
                   borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Colors.white38, width: 2)
+                  border: Border.all(color: Colors.white12, width: 2)
                 ),
-                child: Text(filepath, )
+                child: Text(filepath)
             ),
           ),
         ],

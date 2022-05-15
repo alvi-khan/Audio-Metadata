@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  http: ^0.13.4
+  provider: ^6.0.2
+  beautiful_soup_dart: ^0.2.0
+  flutter_dotenv: ^5.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -20,3 +25,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - .env

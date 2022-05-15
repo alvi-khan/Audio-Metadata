@@ -1,10 +1,19 @@
 import 'package:audio_metadata/file-details.dart';
 import 'package:audio_metadata/file-select.dart';
+import 'package:audio_metadata/metadata-notifier.dart';
 import 'package:audio_metadata/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  dotenv.load(fileName: ".env");
+  runApp(
+      ChangeNotifierProvider<MetadataNotifier>(
+          create: (context) => MetadataNotifier(),
+          child: const MyApp()
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,16 +25,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-          thumbColor: MaterialStateProperty.all(Colors.blueGrey.shade500),
+          thumbColor: MaterialStateProperty.all(Colors.white10),
           crossAxisMargin: -4
         ),
         inputDecorationTheme: Theme.of(context).inputDecorationTheme.copyWith(
           isDense: true,
-          fillColor: Colors.blueGrey.shade700,
+          fillColor: Colors.blueGrey.shade800,
           filled: true,
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(color: Colors.white38, width: 2)
+              borderSide: const BorderSide(color: Colors.white12, width: 2)
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
@@ -61,13 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Expanded(
               child: Row(
-                  children: [
+                  children: const [
                     Search(),
                     Expanded(child: FileDetails())
                   ]
               )
           ),
-           const FileSelect(),
+          const FileSelect(),
         ],
       ),
     );

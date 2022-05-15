@@ -7,17 +7,17 @@ class MissingArt extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         Icon(
             Icons.library_music_rounded,
-            color: Colors.blueGrey.shade300,
+            color: Colors.white24,
             size: 50
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
         Text(
             "No Cover Found.",
             style:
-            TextStyle(color: Colors.blueGrey.shade300, fontSize: 20)
+            TextStyle(color: Colors.white24, fontSize: 20)
         )
       ],
     );

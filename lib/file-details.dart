@@ -1,5 +1,5 @@
+import 'package:audio_metadata/CoverImage.dart';
 import 'package:audio_metadata/metadata-notifier.dart';
-import 'package:audio_metadata/missing-art.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,15 +98,7 @@ class _FileDetailsState extends State<FileDetails> {
                               ),
                               width: 250,
                               height: 250,
-                              child: coverUrl == "" ? const MissingArt() :
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.network(
-                                  coverUrl,
-                                  cacheHeight: 250,
-                                  cacheWidth: 250,
-                                ),
-                              ),
+                              child: CoverImage(coverUrl: coverUrl),
                             )
                         ),
                       )

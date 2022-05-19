@@ -19,6 +19,7 @@ class MetadataNotifier extends ChangeNotifier {
   };
   String songID = "";
   Song? song;
+  bool loading = false;
 
   Future<String> getLyrics(String url) async {
     String lyrics = "";
@@ -40,6 +41,9 @@ class MetadataNotifier extends ChangeNotifier {
   }
 
   void getSong(String songID) async {
+    loading = true;
+    notifyListeners();
+
     if (songID != this.songID) {
       var url = Uri.parse("https://api.genius.com/songs/$songID");
       var res = await http.get(url, headers: headers);
@@ -51,6 +55,7 @@ class MetadataNotifier extends ChangeNotifier {
         String coverUrl = song["album"] == null ? "" : song["album"]["cover_art_url"];
         String lyrics = await getLyrics("https://genius.com${song["path"]}");
         this.song = Song(title, artist, album, lyrics, coverUrl);
+        loading = false;
         notifyListeners();
       }
       this.songID = songID;

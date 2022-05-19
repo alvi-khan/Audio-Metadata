@@ -25,12 +25,19 @@ class _SearchState extends State<Search> {
 
   Map<String, Result> results = {};
   String selectedSong = "";
+  bool loading = false;
+  String searchTerm = "";
+  TextEditingController textController = TextEditingController();
 
   Color selectedColor = Colors.blueGrey.shade500;
   Color hoverColor = Colors.blueGrey.shade700;
   Color transparent = Colors.transparent;
 
   void search(String query) async {
+    setState(() {
+      searchTerm = query;
+      loading = true;
+    });
     var url = Uri.parse("https://api.genius.com/search?q=$query");
     var res = await http.get(url, headers: headers);
     Map<String, Result> results = {};
@@ -43,7 +50,10 @@ class _SearchState extends State<Search> {
         results[id] = Result(title, artist);
       }
     }
-    setState(() => this.results = results);
+    setState(() {
+      this.results = results;
+      loading = false;
+    });
   }
 
   void selectSong(String songID) {
@@ -63,14 +73,31 @@ class _SearchState extends State<Search> {
       child: Column (
         children: [
           TextField(
+            controller: textController,
             style: const TextStyle(fontSize: 16),
-            onSubmitted: (query) => search(query),
-            decoration: const InputDecoration(
+            onSubmitted: (query) {
+              if (query.isNotEmpty) search(query);
+            },
+            onChanged: (value) => setState((){}),
+            decoration: InputDecoration(
                 hintText: "Search",
+              suffixIcon: textController.text.isEmpty ? null : IconButton(
+                color: Colors.redAccent,
+                splashRadius: 0.1,
+                onPressed: () => setState((){
+                  textController.text = "";
+                  searchTerm = "";
+                  results.clear();
+                }),
+                icon: const Icon(Icons.clear_rounded),
+              ),
             ),
           ),
           const SizedBox(height: 20),
-          Expanded(
+          if (loading)  const Text("Loading...")
+          else if (searchTerm.isNotEmpty && results.isEmpty)
+            Text("No results found.")
+          else  Expanded(
             child: ListView(
               padding: const EdgeInsets.only(right: 10),
               shrinkWrap: true,

@@ -14,13 +14,23 @@ class CoverImage extends StatefulWidget {
 
 class _CoverImageState extends State<CoverImage> {
   File? image;
+  bool loading = false;
 
   void downloadImage() async {
+    if (widget.coverUrl == "") {
+      setState(() => image = null);
+      return;
+    }
+
+    setState(() => loading = true);
     var res = await http.get(Uri.parse(widget.coverUrl));
     String filename = widget.coverUrl.split("/").last;
     File file = MemoryFileSystem().file(filename);
     await file.writeAsBytes(res.bodyBytes);
-    setState(() => image = file);
+    setState(() {
+      image = file;
+      loading = false;
+    });
   }
 
   void getImage() async {
@@ -34,11 +44,18 @@ class _CoverImageState extends State<CoverImage> {
   @override
   void didUpdateWidget(CoverImage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    downloadImage();
+    if (widget.coverUrl != oldWidget.coverUrl)  downloadImage();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return const Padding(
+        padding: EdgeInsets.all(50.0),
+        child: CircularProgressIndicator(strokeWidth: 5),
+      );
+    }
+
     return GestureDetector(
         onTap: () => getImage(),
         child: image == null ?

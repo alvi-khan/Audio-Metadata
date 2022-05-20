@@ -4,6 +4,7 @@ import 'package:audio_metadata/metadata-notifier.dart';
 import 'package:audio_metadata/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -42,9 +43,11 @@ class MyApp extends StatelessWidget {
           ),
           hintStyle: TextStyle(color: Colors.blueGrey.shade200),
         ),
-        textTheme: Theme.of(context).textTheme.apply(
-          fontSizeFactor: 1.2,
-          bodyColor: Colors.white,
+        textTheme: GoogleFonts.manropeTextTheme(
+            Theme.of(context).textTheme.apply(
+              fontSizeFactor: 1.2,
+              bodyColor: Colors.white,
+            )
         )
       ),
       home: const MyHomePage(),

@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:audio_metadata/metadata-notifier.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:file/memory.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class CoverImage extends StatefulWidget {
   const CoverImage({Key? key, required this.coverUrl}) : super(key: key);
@@ -15,6 +17,7 @@ class CoverImage extends StatefulWidget {
 class _CoverImageState extends State<CoverImage> {
   File? image;
   bool loading = false;
+  late MetadataNotifier metadata;
 
   void downloadImage() async {
     if (widget.coverUrl == "") {
@@ -27,6 +30,7 @@ class _CoverImageState extends State<CoverImage> {
     String filename = widget.coverUrl.split("/").last;
     File file = MemoryFileSystem().file(filename);
     await file.writeAsBytes(res.bodyBytes);
+    metadata.song?.cover = file;
     setState(() {
       image = file;
       loading = false;
@@ -39,6 +43,7 @@ class _CoverImageState extends State<CoverImage> {
     );
     if (result == null) return;
     setState(() => image = File(result.files.first.path!));
+    metadata.song?.cover = image;
   }
 
   @override
@@ -49,6 +54,8 @@ class _CoverImageState extends State<CoverImage> {
 
   @override
   Widget build(BuildContext context) {
+    metadata = Provider.of<MetadataNotifier>(context, listen: false);
+
     if (loading) {
       return const Padding(
         padding: EdgeInsets.all(50.0),

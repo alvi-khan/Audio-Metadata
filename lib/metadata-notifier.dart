@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ class Song {
   String album = "";
   String lyrics = "";
   String coverUrl = "";
+  File? cover;
   Song(this.title, this.artist, this.album, this.lyrics, this.coverUrl);
 }
 
@@ -41,10 +43,10 @@ class MetadataNotifier extends ChangeNotifier {
   }
 
   void getSong(String songID) async {
-    loading = true;
-    notifyListeners();
-
     if (songID != this.songID) {
+      loading = true;
+      notifyListeners();
+
       var url = Uri.parse("https://api.genius.com/songs/$songID");
       var res = await http.get(url, headers: headers);
       if (res.statusCode == 200) {

@@ -44,6 +44,7 @@ class _FileDetailsState extends State<FileDetails> {
                         Expanded(
                             child: TextField(
                               controller: titleController,
+                              onChanged: (title) => metadata.song?.title = title,
                               style: const TextStyle(fontSize: 16),
                             )
                         ),
@@ -60,6 +61,7 @@ class _FileDetailsState extends State<FileDetails> {
                         Expanded(
                             child: TextField(
                               controller: artistController,
+                              onChanged: (artist) => metadata.song?.artist = artist,
                               style: const TextStyle(fontSize: 16),
                             )
                         ),
@@ -76,6 +78,7 @@ class _FileDetailsState extends State<FileDetails> {
                         Expanded(
                             child: TextField(
                               controller: albumController,
+                              onChanged: (album) => metadata.song?.album = album,
                               style: const TextStyle(fontSize: 16),
                             )
                         ),
@@ -120,6 +123,7 @@ class _FileDetailsState extends State<FileDetails> {
                     Expanded(
                         child: TextField(
                           controller: lyricsController,
+                          onChanged: (lyrics) => metadata.song?.lyrics = lyrics,
                           expands: true,
                           maxLines: null,
                           style: const TextStyle(fontSize: 16, height: 2),
@@ -134,7 +138,7 @@ class _FileDetailsState extends State<FileDetails> {
         ),
         if (metadata.loading) Container(
           color: Colors.black87,
-          child: Center(
+          child: const Center(
             child: SizedBox(
                 width: 300,
                 height: 300,

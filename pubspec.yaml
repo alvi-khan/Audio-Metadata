@@ -16,7 +16,7 @@ dependencies:
   provider: ^6.0.2
   beautiful_soup_dart: ^0.2.0
   flutter_dotenv: ^5.0.2
-  file: ^6.1.2
+  file: ^6.1.4
   file_picker: ^4.5.1
   google_fonts: ^2.3.3
 

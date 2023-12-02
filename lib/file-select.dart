@@ -15,25 +15,19 @@ class _FileSelectState extends State<FileSelect> {
   String filepath = "";
 
   void error(String error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              error,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20)
-          ),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.redAccent,
-          padding: const EdgeInsets.all(15),
-          duration: const Duration(seconds: 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.height - 100,
-            left: 500,
-            right: 500,
-          )
-        )
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error,
+            textAlign: TextAlign.center, style: const TextStyle(fontSize: 20)),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.redAccent,
+        padding: const EdgeInsets.all(15),
+        duration: const Duration(seconds: 1),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 100,
+          left: 500,
+          right: 500,
+        )));
   }
 
   void saveFile() async {
@@ -42,8 +36,7 @@ class _FileSelectState extends State<FileSelect> {
     if (song == null) {
       error("No metadata to save.");
       return;
-    }
-    else {
+    } else {
       String title = song.title;
       String artist = song.artist;
       String album = song.album;
@@ -55,11 +48,10 @@ class _FileSelectState extends State<FileSelect> {
 
   void getFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ["mp3", "flac"],
-      lockParentWindow: true,
-      dialogTitle: "Select File"
-    );
+        type: FileType.custom,
+        allowedExtensions: ["mp3", "flac"],
+        lockParentWindow: true,
+        dialogTitle: "Select File");
     if (result == null) return;
     setState(() => filepath = result.files.first.path!);
   }
@@ -76,22 +68,20 @@ class _FileSelectState extends State<FileSelect> {
           ElevatedButton(
             onPressed: () => getFile(),
             style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(20),
-                primary: Colors.blueGrey.shade500,
+              padding: const EdgeInsets.all(20),
+              primary: Colors.blueGrey.shade500,
             ),
             child: const Text("Select File"),
           ),
           const SizedBox(width: 20),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey.shade800,
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Colors.white12, width: 2)
-                ),
-                child: Text(filepath)
-            ),
+                    color: Colors.blueGrey.shade800,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white12, width: 2)),
+                child: Text(filepath)),
           ),
           const SizedBox(width: 20),
           ElevatedButton(

@@ -9,12 +9,8 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  runApp(
-      ChangeNotifierProvider<MetadataNotifier>(
-          create: (context) => MetadataNotifier(),
-          child: const MyApp()
-      )
-  );
+  runApp(ChangeNotifierProvider<MetadataNotifier>(
+      create: (context) => MetadataNotifier(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,31 +21,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-          thumbColor: MaterialStateProperty.all(Colors.white10),
-          crossAxisMargin: -4
-        ),
-        inputDecorationTheme: Theme.of(context).inputDecorationTheme.copyWith(
-          isDense: true,
-          fillColor: Colors.blueGrey.shade800,
-          filled: true,
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(color: Colors.white12, width: 2)
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(color: Colors.blueAccent, width: 2)
-          ),
-          hintStyle: TextStyle(color: Colors.blueGrey.shade200),
-        ),
-        textTheme: GoogleFonts.manropeTextTheme(
-            Theme.of(context).textTheme.apply(
-              fontSizeFactor: 1.2,
-              bodyColor: Colors.white,
-            )
-        )
-      ),
+          scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
+              thumbColor: MaterialStateProperty.all(Colors.white10),
+              crossAxisMargin: -4),
+          inputDecorationTheme: Theme.of(context).inputDecorationTheme.copyWith(
+                isDense: true,
+                fillColor: Colors.blueGrey.shade800,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide:
+                        const BorderSide(color: Colors.white12, width: 2)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide:
+                        const BorderSide(color: Colors.blueAccent, width: 2)),
+                hintStyle: TextStyle(color: Colors.blueGrey.shade200),
+              ),
+          textTheme:
+              GoogleFonts.manropeTextTheme(Theme.of(context).textTheme.apply(
+                    fontSizeFactor: 1.2,
+                    bodyColor: Colors.white,
+                  ))),
       home: const MyHomePage(),
     );
   }
@@ -63,7 +56,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,12 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Expanded(
               child: Row(
-                  children: const [
-                    Search(),
-                    Expanded(child: FileDetails())
-                  ]
-              )
-          ),
+                  children: const [Search(), Expanded(child: FileDetails())])),
           const FileSelect(),
         ],
       ),

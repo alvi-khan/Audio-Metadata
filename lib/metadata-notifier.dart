@@ -31,9 +31,9 @@ class MetadataNotifier extends ChangeNotifier {
       var lyricsContainer = soup.find("div", id: "lyrics-root");
       List<Bs4Element>? elements = lyricsContainer?.find("*", attrs: {"data-lyrics-container": "true"})?.contents;
       for (var element in elements!) {
-        if (element.text != "") {
-          lyrics = "$lyrics${element.text}\n";
-        }
+        if (element.text == "") continue;
+        BeautifulSoup content = BeautifulSoup(element.innerHtml.replaceAll("<br>", "\n"));
+        lyrics = "$lyrics${content.text}\n";
       }
     }
     catch(e) {

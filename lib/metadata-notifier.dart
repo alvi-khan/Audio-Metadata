@@ -16,9 +16,7 @@ class Song {
 }
 
 class MetadataNotifier extends ChangeNotifier {
-  final headers = {
-    "Authorization": "Bearer ${dotenv.env["API_KEY"]}"
-  };
+  final headers = {"Authorization": "Bearer ${dotenv.env["API_KEY"]}"};
   String songID = "";
   Song? song;
   bool loading = false;
@@ -29,14 +27,15 @@ class MetadataNotifier extends ChangeNotifier {
       var page = await http.get(Uri.parse(url));
       BeautifulSoup soup = BeautifulSoup(page.body);
       var lyricsContainer = soup.find("div", id: "lyrics-root");
-      List<Bs4Element>? elements = lyricsContainer?.find("*", attrs: {"data-lyrics-container": "true"})?.contents;
+      List<Bs4Element>? elements = lyricsContainer
+          ?.find("*", attrs: {"data-lyrics-container": "true"})?.contents;
       for (var element in elements!) {
         if (element.text == "") continue;
-        BeautifulSoup content = BeautifulSoup(element.innerHtml.replaceAll("<br>", "\n"));
+        BeautifulSoup content =
+            BeautifulSoup(element.innerHtml.replaceAll("<br>", "\n"));
         lyrics = "$lyrics${content.text}\n";
       }
-    }
-    catch(e) {
+    } catch (e) {
       print(e);
     }
     return lyrics;
@@ -54,7 +53,8 @@ class MetadataNotifier extends ChangeNotifier {
         String title = song["title"];
         String artist = song["primary_artist"]["name"];
         String album = song["album"] == null ? "" : song["album"]["name"];
-        String coverUrl = song["album"] == null ? "" : song["album"]["cover_art_url"];
+        String coverUrl =
+            song["album"] == null ? "" : song["album"]["cover_art_url"];
         String lyrics = await getLyrics("https://genius.com${song["path"]}");
         this.song = Song(title, artist, album, lyrics, coverUrl);
         loading = false;

@@ -19,9 +19,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  final headers = {
-    "Authorization": "Bearer ${dotenv.env["API_KEY"]}"
-  };
+  final headers = {"Authorization": "Bearer ${dotenv.env["API_KEY"]}"};
 
   Map<String, Result> results = {};
   String selectedSong = "";
@@ -43,7 +41,7 @@ class _SearchState extends State<Search> {
     Map<String, Result> results = {};
     if (res.statusCode == 200) {
       var songs = jsonDecode(res.body)["response"]["hits"];
-      for(var song in songs) {
+      for (var song in songs) {
         String title = song["result"]["title"];
         String artist = song["result"]["primary_artist"]["name"];
         String id = song["result"]["id"].toString();
@@ -67,10 +65,11 @@ class _SearchState extends State<Search> {
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        border: const Border(right: BorderSide(color: Colors.white12, width: 2)),
+        border:
+            const Border(right: BorderSide(color: Colors.white12, width: 2)),
         color: Colors.blueGrey.shade800,
       ),
-      child: Column (
+      child: Column(
         children: [
           TextField(
             controller: textController,
@@ -78,60 +77,65 @@ class _SearchState extends State<Search> {
             onSubmitted: (query) {
               if (query.isNotEmpty) search(query);
             },
-            onChanged: (value) => setState((){}),
+            onChanged: (value) => setState(() {}),
             decoration: InputDecoration(
-                hintText: "Search",
-              suffixIcon: textController.text.isEmpty ? null : IconButton(
-                color: Colors.redAccent,
-                splashRadius: 0.1,
-                onPressed: () => setState((){
-                  textController.text = "";
-                  searchTerm = "";
-                  results.clear();
-                }),
-                icon: const Icon(Icons.clear_rounded),
-              ),
+              hintText: "Search",
+              suffixIcon: textController.text.isEmpty
+                  ? null
+                  : IconButton(
+                      color: Colors.redAccent,
+                      splashRadius: 0.1,
+                      onPressed: () => setState(() {
+                        textController.text = "";
+                        searchTerm = "";
+                        results.clear();
+                      }),
+                      icon: const Icon(Icons.clear_rounded),
+                    ),
             ),
           ),
           const SizedBox(height: 20),
-          if (loading)  const Text("Loading...")
+          if (loading)
+            const Text("Loading...")
           else if (searchTerm.isNotEmpty && results.isEmpty)
             Text("No results found.")
-          else  Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(right: 10),
-              shrinkWrap: true,
-              children: results.entries.map((entry) {
-                return Material(
-                  color: selectedSong == entry.key ? selectedColor : transparent,
-                  borderRadius: BorderRadius.circular(5),
-                  child: InkWell(
-                    highlightColor: selectedColor,
-                    splashColor: selectedColor,
-                    hoverColor: selectedSong == entry.key ? selectedColor : hoverColor,
+          else
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(right: 10),
+                shrinkWrap: true,
+                children: results.entries.map((entry) {
+                  return Material(
+                    color:
+                        selectedSong == entry.key ? selectedColor : transparent,
                     borderRadius: BorderRadius.circular(5),
-                    onTap: () => selectSong(entry.key),
-                    child: Container(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          Text(entry.value.title),
-                          Text(
-                            entry.value.artist,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white54
+                    child: InkWell(
+                      highlightColor: selectedColor,
+                      splashColor: selectedColor,
+                      hoverColor: selectedSong == entry.key
+                          ? selectedColor
+                          : hoverColor,
+                      borderRadius: BorderRadius.circular(5),
+                      onTap: () => selectSong(entry.key),
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            Text(entry.value.title),
+                            Text(
+                              entry.value.artist,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white54),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
-          )
+                  );
+                }).toList(),
+              ),
+            )
         ],
       ),
     );

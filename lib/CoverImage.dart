@@ -49,7 +49,7 @@ class _CoverImageState extends State<CoverImage> {
   @override
   void didUpdateWidget(CoverImage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.coverUrl != oldWidget.coverUrl)  downloadImage();
+    if (widget.coverUrl != oldWidget.coverUrl) downloadImage();
   }
 
   @override
@@ -65,35 +65,32 @@ class _CoverImageState extends State<CoverImage> {
 
     return GestureDetector(
         onTap: () => getImage(),
-        child: image == null ?
-        const Icon(
-            Icons.library_music_rounded,
-            color: Colors.white24,
-            size: 50
-        ) : Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Image.file(
-                image!,
-                cacheHeight: 250,
-                cacheWidth: 250,
-              ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                padding: const EdgeInsets.all(10),
-                  color: Colors.redAccent,
-                  splashRadius: 0.1,
-                  onPressed: () {
-                    setState(() => image = null);
-                  },
-                  icon: const Icon(Icons.clear_rounded),
-              ),
-            )
-          ],
-        )
-    );
+        child: image == null
+            ? const Icon(Icons.library_music_rounded,
+                color: Colors.white24, size: 50)
+            : Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.file(
+                      image!,
+                      cacheHeight: 250,
+                      cacheWidth: 250,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      padding: const EdgeInsets.all(10),
+                      color: Colors.redAccent,
+                      splashRadius: 0.1,
+                      onPressed: () {
+                        setState(() => image = null);
+                      },
+                      icon: const Icon(Icons.clear_rounded),
+                    ),
+                  )
+                ],
+              ));
   }
 }

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:audio_metadata/metadata-notifier.dart';
+import 'package:audio_metadata/metadata_notifier.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:file/memory.dart';
@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class CoverImage extends StatefulWidget {
-  const CoverImage({Key? key, required this.coverUrl}) : super(key: key);
+  const CoverImage({super.key, required this.coverUrl});
   final String coverUrl;
 
   @override
@@ -64,33 +64,37 @@ class _CoverImageState extends State<CoverImage> {
     }
 
     return GestureDetector(
-        onTap: () => getImage(),
-        child: image == null
-            ? const Icon(Icons.library_music_rounded,
-                color: Colors.white24, size: 50)
-            : Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: Image.file(
-                      image!,
-                      cacheHeight: 250,
-                      cacheWidth: 250,
-                    ),
+      onTap: () => getImage(),
+      child: image == null
+          ? const Icon(
+              Icons.library_music_rounded,
+              color: Colors.white24,
+              size: 50,
+            )
+          : Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Image.file(
+                    image!,
+                    cacheHeight: 250,
+                    cacheWidth: 250,
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(10),
-                      color: Colors.redAccent,
-                      splashRadius: 0.1,
-                      onPressed: () {
-                        setState(() => image = null);
-                      },
-                      icon: const Icon(Icons.clear_rounded),
-                    ),
-                  )
-                ],
-              ));
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    padding: const EdgeInsets.all(10),
+                    color: Colors.redAccent,
+                    splashRadius: 0.1,
+                    onPressed: () {
+                      setState(() => image = null);
+                    },
+                    icon: const Icon(Icons.clear_rounded),
+                  ),
+                ),
+              ],
+            ),
+    );
   }
 }

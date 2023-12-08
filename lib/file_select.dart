@@ -1,11 +1,11 @@
-import 'package:audio_metadata/metadata-notifier.dart';
+import 'package:audio_metadata/metadata_notifier.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taggy/taggy.dart' hide FileType;
 
 class FileSelect extends StatefulWidget {
-  const FileSelect({Key? key}) : super(key: key);
+  const FileSelect({super.key});
 
   @override
   State<FileSelect> createState() => _FileSelectState();
@@ -15,9 +15,13 @@ class _FileSelectState extends State<FileSelect> {
   String filepath = "";
 
   void error(String error) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error,
-            textAlign: TextAlign.center, style: const TextStyle(fontSize: 20)),
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20),
+        ),
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.redAccent,
         padding: const EdgeInsets.all(15),
@@ -27,7 +31,9 @@ class _FileSelectState extends State<FileSelect> {
           bottom: MediaQuery.of(context).size.height - 100,
           left: 500,
           right: 500,
-        )));
+        ),
+      ),
+    );
   }
 
   void saveFile() async {
@@ -82,26 +88,28 @@ class _FileSelectState extends State<FileSelect> {
             onPressed: () => getFile(),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(20),
-              primary: Colors.blueGrey.shade500,
+              backgroundColor: Colors.blueGrey.shade500,
             ),
             child: const Text("Select File"),
           ),
           const SizedBox(width: 20),
           Expanded(
             child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade800,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white12, width: 2)),
-                child: Text(filepath)),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.blueGrey.shade800,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: Colors.white12, width: 2),
+              ),
+              child: Text(filepath),
+            ),
           ),
           const SizedBox(width: 20),
           ElevatedButton(
             onPressed: () => saveFile(),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              primary: Colors.blueGrey.shade500,
+              backgroundColor: Colors.blueGrey.shade500,
             ),
             child: const Icon(Icons.save_outlined, size: 32),
           ),

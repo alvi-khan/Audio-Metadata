@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:audio_metadata/metadata-notifier.dart';
+import 'package:audio_metadata/metadata_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +12,7 @@ class Result {
 }
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  const Search({super.key});
 
   @override
   State<Search> createState() => _SearchState();
@@ -65,8 +65,12 @@ class _SearchState extends State<Search> {
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        border:
-            const Border(right: BorderSide(color: Colors.white12, width: 2)),
+        border: const Border(
+          right: BorderSide(
+            color: Colors.white12,
+            width: 2,
+          ),
+        ),
         color: Colors.blueGrey.shade800,
       ),
       child: Column(
@@ -98,7 +102,7 @@ class _SearchState extends State<Search> {
           if (loading)
             const Text("Loading...")
           else if (searchTerm.isNotEmpty && results.isEmpty)
-            Text("No results found.")
+            const Text("No results found.")
           else
             Expanded(
               child: ListView(
@@ -126,7 +130,9 @@ class _SearchState extends State<Search> {
                             Text(
                               entry.value.artist,
                               style: const TextStyle(
-                                  fontSize: 14, color: Colors.white54),
+                                fontSize: 14,
+                                color: Colors.white54,
+                              ),
                             ),
                           ],
                         ),

@@ -24,17 +24,13 @@ class MetadataNotifier extends ChangeNotifier {
   Future<String> getLyrics(String url) async {
     String lyrics = "";
     try {
-      var page = await http.get(Uri.parse(url));
-      BeautifulSoup soup = BeautifulSoup(page.body);
-      var lyricsContainer = soup.find("div", id: "lyrics-root");
-      List<Bs4Element>? elements = lyricsContainer
-          ?.find("*", attrs: {"data-lyrics-container": "true"})?.contents;
-      for (var element in elements!) {
-        if (element.text == "") continue;
-        BeautifulSoup content =
-            BeautifulSoup(element.innerHtml.replaceAll("<br>", "\n"));
-        lyrics = "$lyrics${content.text}\n";
-      }
+      String responseBody = (await http.get(Uri.parse(url))).body;
+      BeautifulSoup soup =
+          BeautifulSoup(responseBody.replaceAll('<br/>', '\n'));
+      lyrics = soup
+          .findAll('div', class_: 'Lyrics__Container')
+          .map((e) => e.getText().trim())
+          .join('\n');
     } catch (e) {
       print(e);
     }

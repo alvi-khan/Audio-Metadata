@@ -59,7 +59,10 @@ class _CoverImageState extends State<CoverImage> {
     if (loading) {
       return const Padding(
         padding: EdgeInsets.all(50.0),
-        child: CircularProgressIndicator(strokeWidth: 5),
+        child: CircularProgressIndicator(
+          strokeWidth: 5,
+          color: Colors.white12,
+        ),
       );
     }
 
@@ -74,7 +77,7 @@ class _CoverImageState extends State<CoverImage> {
           : Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(8),
                   child: Image.file(
                     image!,
                     cacheHeight: 250,

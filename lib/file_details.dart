@@ -96,7 +96,7 @@ class _FileDetailsState extends State<FileDetails> {
                           child: Center(
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(9),
                                 border: Border.all(
                                   color: Colors.white12,
                                   width: 3,
@@ -145,7 +145,10 @@ class _FileDetailsState extends State<FileDetails> {
             child: SizedBox(
               width: 300,
               height: 300,
-              child: CircularProgressIndicator(strokeWidth: 10),
+              child: CircularProgressIndicator(
+                strokeWidth: 10,
+                color: Colors.white12,
+              ),
             ),
           ),
         ),

@@ -87,6 +87,7 @@ class _FileSelectState extends State<FileSelect> {
           ElevatedButton(
             onPressed: () => getFile(),
             style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.all(20),
               backgroundColor: Colors.blueGrey.shade500,
             ),
@@ -108,6 +109,7 @@ class _FileSelectState extends State<FileSelect> {
           ElevatedButton(
             onPressed: () => saveFile(),
             style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 15),
               backgroundColor: Colors.blueGrey.shade500,
             ),

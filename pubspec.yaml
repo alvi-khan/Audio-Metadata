@@ -19,6 +19,7 @@ dependencies:
   file: ^7.0.0
   file_picker: ^6.1.1
   google_fonts: ^6.1.0
+  flutter_taggy: ^0.1.2+3
 
 dev_dependencies:
   flutter_test:

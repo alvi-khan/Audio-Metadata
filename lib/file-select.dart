@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:audio_metadata/metadata-notifier.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:taggy/taggy.dart' hide FileType;
 
 class FileSelect extends StatefulWidget {
   const FileSelect({Key? key}) : super(key: key);
@@ -37,12 +37,25 @@ class _FileSelectState extends State<FileSelect> {
       error("No metadata to save.");
       return;
     } else {
-      String title = song.title;
-      String artist = song.artist;
-      String album = song.album;
-      String lyrics = song.lyrics;
-      File? cover = song.cover;
-      // TODO save this information to the selected file
+      List<Picture> pictures = [];
+      if (song.cover != null) {
+        Picture picture = Picture(
+          picType: PictureType.CoverFront,
+          picData: song.cover!.readAsBytesSync(),
+        );
+        pictures.add(picture);
+      }
+
+      Tag tag = Tag(
+        tagType: TagType.FilePrimaryType,
+        trackTitle: song.title,
+        trackArtist: song.artist,
+        album: song.album,
+        pictures: pictures,
+        lyrics: song.lyrics,
+      );
+
+      await Taggy.writePrimary(path: filepath, tag: tag, keepOthers: false);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:audio_metadata/helper.dart';
 import 'package:audio_metadata/metadata_notifier.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -14,55 +15,44 @@ class FileSelect extends StatefulWidget {
 class _FileSelectState extends State<FileSelect> {
   String filepath = "";
 
-  void error(String error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          error,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 20),
-        ),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.redAccent,
-        padding: const EdgeInsets.all(15),
-        duration: const Duration(seconds: 1),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 100,
-          left: 500,
-          right: 500,
-        ),
-      ),
-    );
-  }
-
   void saveFile() async {
-    if (filepath == "") error("No audio file.");
-    Song? song = Provider.of<MetadataNotifier>(context, listen: false).song;
-    if (song == null) {
-      error("No metadata to save.");
+    if (filepath == "") {
+      notify(context, NotificationType.error, "No audio file.");
       return;
-    } else {
-      List<Picture> pictures = [];
-      if (song.cover != null) {
-        Picture picture = Picture(
-          picType: PictureType.CoverFront,
-          picData: song.cover!.readAsBytesSync(),
-        );
-        pictures.add(picture);
-      }
-
-      Tag tag = Tag(
-        tagType: TagType.FilePrimaryType,
-        trackTitle: song.title,
-        trackArtist: song.artist,
-        album: song.album,
-        pictures: pictures,
-        lyrics: song.lyrics,
-      );
-
-      await Taggy.writePrimary(path: filepath, tag: tag, keepOthers: false);
     }
+
+    Song? song = Provider.of<MetadataNotifier>(context, listen: false).song;
+
+    if (song == null) {
+      notify(context, NotificationType.error, "No metadata to save.");
+      return;
+    }
+
+    List<Picture> pictures = [];
+    if (song.cover != null) {
+      Picture picture = Picture(
+        picType: PictureType.CoverFront,
+        picData: song.cover!.readAsBytesSync(),
+      );
+      pictures.add(picture);
+    }
+
+    Tag tag = Tag(
+      tagType: TagType.FilePrimaryType,
+      trackTitle: song.title,
+      trackArtist: song.artist,
+      album: song.album,
+      pictures: pictures,
+      lyrics: song.lyrics,
+    );
+
+    Taggy.writePrimary(
+      path: filepath,
+      tag: tag,
+      keepOthers: false,
+    ).whenComplete(() {
+      notify(context, NotificationType.success, "Metadata Saved!");
+    });
   }
 
   void getFile() async {

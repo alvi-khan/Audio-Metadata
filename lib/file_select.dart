@@ -80,6 +80,9 @@ class _FileSelectState extends State<FileSelect> {
               foregroundColor: Colors.white,
               padding: const EdgeInsets.all(20),
               backgroundColor: Colors.blueGrey.shade500,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             child: const Text("Select File"),
           ),
@@ -89,7 +92,7 @@ class _FileSelectState extends State<FileSelect> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.blueGrey.shade800,
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.white12, width: 2),
               ),
               child: Text(filepath),
@@ -102,6 +105,9 @@ class _FileSelectState extends State<FileSelect> {
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 15),
               backgroundColor: Colors.blueGrey.shade500,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             child: const Icon(Icons.save_outlined, size: 32),
           ),

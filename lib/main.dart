@@ -34,14 +34,14 @@ class MyApp extends StatelessWidget {
               fillColor: Colors.blueGrey.shade800,
               filled: true,
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(8),
                 borderSide: const BorderSide(
                   color: Colors.white12,
                   width: 2,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(8),
                 borderSide: const BorderSide(
                   color: Colors.blueAccent,
                   width: 2,

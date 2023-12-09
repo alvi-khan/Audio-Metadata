@@ -96,7 +96,7 @@ class _FileDetailsState extends State<FileDetails> {
                           child: Center(
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(9),
+                                borderRadius: BorderRadius.circular(13),
                                 border: Border.all(
                                   color: Colors.white12,
                                   width: 3,

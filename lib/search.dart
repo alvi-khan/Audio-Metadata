@@ -112,14 +112,14 @@ class _SearchState extends State<Search> {
                   return Material(
                     color:
                         selectedSong == entry.key ? selectedColor : transparent,
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(12),
                     child: InkWell(
                       highlightColor: selectedColor,
                       splashColor: selectedColor,
                       hoverColor: selectedSong == entry.key
                           ? selectedColor
                           : hoverColor,
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(12),
                       onTap: () => selectSong(entry.key),
                       child: Container(
                         padding: const EdgeInsets.all(10.0),

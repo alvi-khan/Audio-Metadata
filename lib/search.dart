@@ -59,6 +59,14 @@ class _SearchState extends State<Search> {
     Provider.of<MetadataNotifier>(context, listen: false).getSong(songID);
   }
 
+  void reset() {
+    setState(() {
+      textController.text = "";
+      searchTerm = "";
+      results.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,14 +95,11 @@ class _SearchState extends State<Search> {
               suffixIcon: textController.text.isEmpty
                   ? null
                   : IconButton(
-                      color: Colors.redAccent,
-                      splashRadius: 0.1,
-                      onPressed: () => setState(() {
-                        textController.text = "";
-                        searchTerm = "";
-                        results.clear();
-                      }),
-                      icon: const Icon(Icons.clear_rounded),
+                      onPressed: () => reset(),
+                      icon: const Icon(
+                        Icons.clear_rounded,
+                        color: Colors.redAccent,
+                      ),
                     ),
             ),
           ),

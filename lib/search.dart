@@ -109,33 +109,31 @@ class _SearchState extends State<Search> {
                 padding: const EdgeInsets.only(right: 10),
                 shrinkWrap: true,
                 children: results.entries.map((entry) {
-                  return Material(
-                    color:
-                        selectedSong == entry.key ? selectedColor : transparent,
-                    borderRadius: BorderRadius.circular(12),
-                    child: InkWell(
-                      highlightColor: selectedColor,
-                      splashColor: selectedColor,
-                      hoverColor: selectedSong == entry.key
-                          ? selectedColor
-                          : hoverColor,
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () => selectSong(entry.key),
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Text(entry.value.title),
-                            Text(
-                              entry.value.artist,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white54,
-                              ),
+                  return TextButton(
+                    onPressed: () => selectSong(entry.key),
+                    style: TextButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: selectedSong == entry.key
+                            ? selectedColor
+                            : transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        )),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(entry.value.title),
+                          Text(
+                            entry.value.artist,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white54,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   );
